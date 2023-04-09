@@ -1,0 +1,14 @@
+{
+    "name": "StateSystem",
+    "rootNamespace": "",
+    "references": ["GUID:a460a3ec6af712340af1d85e2426c36e"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
