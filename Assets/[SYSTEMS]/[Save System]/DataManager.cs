@@ -1,39 +1,20 @@
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace _SYSTEMS_._Save_System_
 {
-    public static class DataManager<T> where T : SaveableData<T>
+    public static class DataManager
     {
-        public static readonly List<T> SaveableDataList = new List<T>();
-
-        public static void SaveData()
+        public static SaveData SaveData;
+        public static void Save()
         {
-            var saveableData = Resources.LoadAll<T>($"Saves");
-
-            for (var index = 0; index < saveableData.Length; index++)
-            {
-                SaveableDataList[index].Data = saveableData[index].Data;
-            }
+            string json = JsonUtility.ToJson(SaveData);
+            File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
         }
-
-        public static void LoadData(string fileName)
+        public static void Load()
         {
-            LoadDataFromResources();
-            Debug.Log(SaveableDataList[0].GetObject<int>("Test"));
-        }
-
-        private static void LoadDataFromResources()
-        {
-            var saveableDataList = new List<T>();
-
-            var loadAll = Resources.LoadAll<T>($"Saves");
-
-            for (var index = 0; index < loadAll.Length; index++)
-            {
-                saveableDataList.Add(Object.Instantiate(loadAll[index]));
-            }
-        }
+            string json = File.ReadAllText(Application.persistentDataPath + "/savefile.json");
+            SaveData = JsonUtility.FromJson<SaveData>(json);
+        }        
     }
 }

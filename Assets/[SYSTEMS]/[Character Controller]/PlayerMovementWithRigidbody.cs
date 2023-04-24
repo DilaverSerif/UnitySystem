@@ -1,40 +1,51 @@
-﻿using UnityEngine;
+﻿using System;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace _SYSTEMS_._Character_Controller_
 {
-    public class PlayerMovementWithRigidbody
+    [Serializable]
+    public class PlayerMovementWithRigidbody : MonoBehaviour, IPlayerMovement
     {
-        private Rigidbody _rigidbody;
+        public Rigidbody rigidBody;
+        public Vector3 targetDirection;
 
-        public PlayerMovementWithRigidbody(Rigidbody rigidbody)
+        [ShowInInspector]
+        public float CurrentSpeed
         {
-            _rigidbody = rigidbody;
+            get
+            {
+                if (rigidBody == null)
+                    return 0;
+                
+                return rigidBody.velocity.magnitude;
+            }
         }
-
-        public void Move(Vector3 direction, float speed)
+        
+        public void Move()
         {
-            _rigidbody.velocity = direction * speed;
+            // rigidBody.velocity = direction * speed;
         }
 
         public void Rotate(Vector3 direction, float speed)
         {
-            _rigidbody.angularVelocity = direction * speed;
+            rigidBody.angularVelocity = direction * speed;
         }
 
         public void Stop()
         {
-            _rigidbody.velocity = Vector3.zero;
-            _rigidbody.angularVelocity = Vector3.zero;
+            rigidBody.velocity = Vector3.zero;
+            rigidBody.angularVelocity = Vector3.zero;
         }
 
         public void StopRotation()
         {
-            _rigidbody.angularVelocity = Vector3.zero;
+            rigidBody.angularVelocity = Vector3.zero;
         }
 
         public void StopMovement()
         {
-            _rigidbody.velocity = Vector3.zero;
+            rigidBody.velocity = Vector3.zero;
         }
     }
 }

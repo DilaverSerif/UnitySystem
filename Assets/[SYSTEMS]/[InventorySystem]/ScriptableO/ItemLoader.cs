@@ -14,7 +14,7 @@ namespace _SYSTEMS_._InventorySystem_.ScriptableO
             foreach (var item in items)
             {
                 if (item.itemName == itemName)
-                    return item;
+                    return Object.Instantiate(item);
             }
 
             return null;

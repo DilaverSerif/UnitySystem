@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using _SYSTEMS_._Character_System_.Abstract;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

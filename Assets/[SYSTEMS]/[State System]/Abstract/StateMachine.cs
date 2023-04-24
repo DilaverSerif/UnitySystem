@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using _SYSTEMS_._Character_System_.Abstract;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -10,28 +9,25 @@ namespace _SYSTEMS_._State_System_.Abstract
     public class StateMachine : SerializedMonoBehaviour, IReferenceContainer
     {
         [ShowInInspector]
-        public Dictionary<string, object> references = new Dictionary<string, object>();
+        public Dictionary<string, object> References = new();
         private void Awake()
         {
-            references.Add("Target", transform);
+            References.Add("Target", transform);
         }
 
         public void SetReference(string key, object value)
         {
-            if (references.ContainsKey(key))
-                references[key] = value;
-            else
-                references.Add(key, value);
+            References[key] = value;
         }
 
         public T GetReference<T>(string key)
         {
-            if (references.ContainsKey(key))
+            if (References.TryGetValue(key, out var reference))
             {
-                return (T)references[key];
+                return (T)reference;
             }
 
-            return default(T);
+            return default;
         }
     }
 }

@@ -1,8 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using _GAME_.Scripts._SYSTEMS_._Character_System_.Interface;
-using _SYSTEMS_._State_System_.Abstract;
 using UnityEngine;
 
-namespace _SYSTEMS_._Character_System_.Abstract
+namespace _SYSTEMS_._State_System_.Abstract
 {
     public interface IReferenceContainer
     {
@@ -13,10 +14,12 @@ namespace _SYSTEMS_._Character_System_.Abstract
     public abstract class State : ScriptableObject, IReferenceContainer,IState
     {
         private StateMachine _stateMachine;
-
+        protected Transform transform;
+        
         public void SetStateMachine(StateMachine stateMachine)
         {
             _stateMachine = stateMachine;
+            transform = _stateMachine.transform;
         }
 
         public T GetReference<T>(string key)
@@ -27,6 +30,11 @@ namespace _SYSTEMS_._Character_System_.Abstract
         public void SetReference(string key, object value)
         {
             _stateMachine.SetReference(key, value);
+        }
+        
+        protected Coroutine StartCoroutine(IEnumerator coroutine)
+        {
+            return _stateMachine.StartCoroutine(coroutine);
         }
 
         public abstract void OnTick();
