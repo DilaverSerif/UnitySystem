@@ -21,6 +21,11 @@ namespace _SYSTEMS_._Character_Controller_.States
             
         }
 
+        public override void OnFixedTick()
+        {
+            
+        }
+
         public void Move()
         {
             var getPosition = GetReference<Vector3>("TargetPosition");

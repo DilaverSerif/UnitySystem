@@ -40,5 +40,6 @@ namespace _SYSTEMS_._State_System_.Abstract
         public abstract void OnTick();
         public abstract void OnEnter();
         public abstract void OnExit();
+        public abstract void OnFixedTick();
     }
 }

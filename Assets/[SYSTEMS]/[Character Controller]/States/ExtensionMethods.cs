@@ -211,16 +211,6 @@ public static class ExtensionMethods
         return list.OrderBy(x => Vector3.Distance(currentPosition, x.transform.position)).Take(count).ToList().FirstOrDefault();
     }
     
-    // public static void TweenBlendShape(this SkinnedMeshRenderer meshRenderer, float initial, float final, float time)
-    // {
-    //     var blendShapeValue = meshRenderer.GetBlendShapeWeight(0);
-    //     DOTween.To(() => blendShapeValue, x => blendShapeValue = x, final, 0.3f).OnUpdate(() =>
-    //     {
-    //         meshRenderer.SetBlendShapeWeight(0, blendShapeValue);
-    //         Debug.Log("SettingValue");
-    //     });
-    // }
-    
     public static float GetDistanceTo(this Vector3 pos, Vector3 target)
     {
         target.y = pos.y;

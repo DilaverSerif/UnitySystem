@@ -23,6 +23,7 @@ namespace _SYSTEMS_._State_System_.Abstract
             for (var i = 0; i < states.Count; i++)
             {
                 states[i] = Instantiate(states[i]);
+                states[i].SetStateMachine(stateMachine);
             }
             
             if (initialState == null)
@@ -46,6 +47,14 @@ namespace _SYSTEMS_._State_System_.Abstract
             currentState.OnTick();
         }
 
+        private void FixedUpdate()
+        {
+            if (currentState == null) 
+                return;
+
+            currentState.OnFixedTick();
+        }
+
         public void TransitionToState(State nextState)
         {
             if (nextState == null)
@@ -57,7 +66,7 @@ namespace _SYSTEMS_._State_System_.Abstract
             if(currentState != null)
                 currentState.OnExit();
             
-            nextState.SetStateMachine(stateMachine);
+           
             SetState(nextState);
         }
         
@@ -76,10 +85,8 @@ namespace _SYSTEMS_._State_System_.Abstract
                 Debug.LogWarning("Null state provided for transition.");
                 return;
             }
-
-            currentState.OnExit();
-            nextState.SetStateMachine(stateMachine);
-            SetState(nextState);
+            
+            TransitionToState(nextState);
         }
         
         private void SetState(State state)

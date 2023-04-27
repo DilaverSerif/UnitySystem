@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 47583793}
   - component: {fileID: 47583794}
+  - component: {fileID: 47583795}
   m_Layer: 0
   m_Name: Interfaces
   m_TagString: Untagged
@@ -169,6 +170,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 186244985}
   targetDirection: {x: 0, y: 0, z: 0}
+--- !u!114 &47583795
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47583792}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b98d4b3879545c386b409a58fa3bdbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMovementData: {fileID: 0}
+  FrontRay: {fileID: 11400000, guid: b9e03923757438249b8a7e7407e09195, type: 2}
+  BackRay: {fileID: 11400000, guid: be599acd904b1c34da9929cb9c395263, type: 2}
+  DownRay: {fileID: 11400000, guid: be599acd904b1c34da9929cb9c395263, type: 2}
+  UpRay: {fileID: 0}
 --- !u!1 &186244981
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,17 +363,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovementData: {fileID: 11400000, guid: 88087b354f9c9874a9fd79fc8677717c, type: 2}
-  radius: 0.2
-  distance: 1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  FrontDirections:
-  - {x: 1, y: 0, z: 1}
-  - {x: 0, y: 0, z: 1}
-  - {x: -1, y: 0, z: 1}
-  frontDistance: 2.07
-  frontYOffset: 0.9
 --- !u!136 &186244987
 CapsuleCollider:
   m_ObjectHideFlags: 0

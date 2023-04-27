@@ -15,4 +15,5 @@ MonoBehaviour:
   movementSpeed: 1
   jumpForce: 10
   rotationSpeed: 10
-  IsGrounded: 1
+  DownData: {fileID: 11400000, guid: be599acd904b1c34da9929cb9c395263, type: 2}
+  ForwardData: {fileID: 0}

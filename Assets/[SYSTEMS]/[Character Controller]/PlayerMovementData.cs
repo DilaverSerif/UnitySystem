@@ -9,12 +9,8 @@ namespace _SYSTEMS_._Character_Controller_
         public float movementSpeed;
         public float jumpForce;
         public float rotationSpeed;
-        
-        public bool isGrounded;
-        public Transform groundTransform;
-        
-        public Transform leftTransform;
-        public Transform rightTransform;
-        public Transform centerTransform;
+
+        public RayData DownData;
+        public RayData ForwardData;
     }
 }

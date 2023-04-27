@@ -10,13 +10,18 @@ namespace _SYSTEMS_._Character_Controller_.States
         private Coroutine _locomotionIdle;
         public override void OnEnter()
         {
-            if (_locomotionIdle == null)
-                _locomotionIdle = StartCoroutine(LocomotionIdle());
+            // if (_locomotionIdle == null)
+            //     _locomotionIdle = StartCoroutine(LocomotionIdle());
         }
 
         public override void OnExit()
         {
             _locomotionIdle = null;
+        }
+
+        public override void OnFixedTick()
+        {
+            
         }
 
         public override void OnTick()
