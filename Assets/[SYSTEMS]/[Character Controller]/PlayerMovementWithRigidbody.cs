@@ -22,9 +22,10 @@ namespace _SYSTEMS_._Character_Controller_
             }
         }
         
-        public void Move()
+        public void Move(Vector3 targetPosition, float speed)
         {
-            // rigidBody.velocity = direction * speed;
+            targetDirection = (transform.position - targetPosition).normalized;
+            rigidBody.velocity = targetDirection * (speed * Time.deltaTime);
         }
 
         public void Rotate(Vector3 direction, float speed)

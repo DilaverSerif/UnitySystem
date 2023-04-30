@@ -47,7 +47,7 @@ namespace _SYSTEMS_._Character_Controller_.States
             _locomotionIdle = null;
         }
 
-        public void Move()
+        public void Move(Vector3 targetPosition, float speed)
         {
             
         }
