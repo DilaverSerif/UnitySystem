@@ -22,6 +22,12 @@ namespace _SYSTEMS_._Character_Controller_
             public UnityEvent onKeyPressed;
         }
         
+        public struct InputData
+        {
+            public float horizontal;
+            public float vertical;
+        }
+        
         public List<KeyEvent> keyEvents = new List<KeyEvent>();
 
         public Vector3 MovementDirection()
@@ -41,7 +47,7 @@ namespace _SYSTEMS_._Character_Controller_
         private void Update()
         {
             if(keyEvents.Count == 0) return;
-            
+
             foreach (var keyEvent in keyEvents.Where(keyEvent => Input.GetKeyDown(keyEvent.keyCode)))
             {
                 keyEvent.onKeyPressed.Invoke();

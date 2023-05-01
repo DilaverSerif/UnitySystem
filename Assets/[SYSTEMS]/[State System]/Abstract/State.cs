@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using _GAME_.Scripts._SYSTEMS_._Character_System_.Interface;
+using _SYSTEMS_._Interaction_System_.Abstract;
 using UnityEngine;
 
 namespace _SYSTEMS_._State_System_.Abstract
@@ -15,6 +16,8 @@ namespace _SYSTEMS_._State_System_.Abstract
     {
         private StateMachine _stateMachine;
         protected Transform transform;
+        
+        public List<InteractionBase<MonoBehaviour>> interactionBases;
         
         public void SetStateMachine(StateMachine stateMachine)
         {

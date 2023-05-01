@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0cfe0c3cc144bcea79759152cb14256, type: 3}
   m_Name: Idle State
   m_EditorClassIdentifier: 
-  testString: 
+  interactionBases:
+  - {fileID: 11400000, guid: 4b34584bda82463469562c22ad0ab4a9, type: 2}

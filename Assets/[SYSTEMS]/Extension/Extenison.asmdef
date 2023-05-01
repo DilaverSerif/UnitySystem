@@ -1,7 +1,7 @@
 {
-    "name": "InventorySytem",
+    "name": "Extenison",
     "rootNamespace": "",
-    "references": ["GUID:43ac930e39fe3d24983520878a1481d7"],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

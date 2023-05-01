@@ -1,58 +1,26 @@
 using _SYSTEMS_._State_System_.Abstract;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _SYSTEMS_._Character_Controller_.States
 {
     [CreateAssetMenu(menuName = "Character System/State/Create WalkState", fileName = "WalkState", order = 0)]
     public class WalkState : State, IPlayerMovement
     {
-        private IPlayerMovement _movement;
-        private InputController _inputController;
+        private CharacterController _characterController;
+        private Vector3 _targetPosition;
         private PlayerMovementData _playerMovementData;
-
-        public IPlayerMovement Movement
-        {
-            get
-            {
-                if (_movement == null)
-                 _movement = GetReference<IPlayerMovement>("Movement");
-
-                return _movement;
-            }
-        }
-        
-        // public InputController InputController
-        // {
-        //     get
-        //     {
-        //         if (_inputController == null)
-        //             _inputController = GetReference<InputController>("Input");
-        //
-        //         return _inputController;
-        //     }
-        // }
-        
-        public PlayerMovementData PlayerMovementData
-        {
-            get
-            {
-                if (_playerMovementData == null)
-                    _playerMovementData = GetReference<PlayerMovementData>("MoveData");
-
-                return _playerMovementData;
-            }
-        }
-        
         
         public override void OnTick()
         {
-            Movement.Move(InputController.Instance.MovementDirection(),PlayerMovementData.movementSpeed);
+            Move();
         }
 
         public override void OnEnter()
         {
-            
+            if(_playerMovementData != null) return;
+            _playerMovementData = GetReference<PlayerMovementData>("MoveData");
+            _characterController = GetReference<CharacterController>("CharacterController");
+            _targetPosition = GetReference<Vector3>("MoveDirection");
         }
 
         public override void OnExit()
@@ -65,33 +33,35 @@ namespace _SYSTEMS_._Character_Controller_.States
             
         }
 
-        public void Move(Vector3 targetPosition, float speed)
+        public void Move()
         {
-            var getPosition = GetReference<Vector3>("TargetPosition");
-            var body = GetReference<Rigidbody>("Body");
-            
-            //Move to target position with ridigbody
-            body.MovePosition(getPosition);    
+            var move = _targetPosition * (_playerMovementData.movementSpeed * Time.deltaTime);
+            _characterController.Move(move);
         }
 
-        public void Rotate(Vector3 direction, float speed)
+        public void Rotate()
         {
-            throw new System.NotImplementedException();
+            var direction = _targetPosition - transform.position.normalized;
+            direction.y = transform.position.y;
+            
+            var targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
+                _playerMovementData.rotationSpeed * Time.deltaTime);
         }
 
         public void Stop()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void StopRotation()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void StopMovement()
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

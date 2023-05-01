@@ -1,7 +1,10 @@
 {
     "name": "StateSystem",
     "rootNamespace": "",
-    "references": ["GUID:a460a3ec6af712340af1d85e2426c36e"],
+    "references": [
+        "GUID:a460a3ec6af712340af1d85e2426c36e",
+        "GUID:a2816682b879fc849b3a0f26c2878cb9"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

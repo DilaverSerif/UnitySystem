@@ -9,11 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3360d8cfe84b4f74bd27742d2bd1f61e, type: 3}
-  m_Name: PlayerMovementData
+  m_Script: {fileID: 11500000, guid: 9fbc54dda1be4664b5ed71d0a8caee4c, type: 3}
+  m_Name: GameObject Collectable
   m_EditorClassIdentifier: 
-  movementSpeed: 1
-  jumpForce: 10
-  rotationSpeed: 10
-  DownData: {fileID: 11400000, guid: be599acd904b1c34da9929cb9c395263, type: 2}
-  ForwardData: {fileID: 0}

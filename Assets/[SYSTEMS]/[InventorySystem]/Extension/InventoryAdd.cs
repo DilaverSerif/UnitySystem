@@ -19,10 +19,8 @@ namespace _SYSTEMS_._InventorySystem_.Extension
 			inventory.InventoryArray[slot.x, slot.y] = item;
 
 			if (item is IStackable stackableItem)
-			{
 				item.currentStackCount += amount;
-			}
-
+			
 			if(inventory.inventoryOwner == InventoryOwner.Player)
 				InventorySystem.OnAddedNewItem?.Invoke(item);
 
@@ -64,7 +62,7 @@ namespace _SYSTEMS_._InventorySystem_.Extension
 			var goldItem = inventory.GetItemById(0);
 			
 			if (goldItem == null)
-				goldItem = Object.Instantiate(ItemLoader.Instance.GetItem(0));
+				goldItem = ItemLoader.Instance.GetItem(0);
 			
 			inventory.AutoAddNewItem(goldItem, amount);
 			
