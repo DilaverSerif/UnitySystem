@@ -12,6 +12,9 @@ namespace _SYSTEMS_._Character_Controller_.States
         
         public override void OnTick()
         {
+            _targetPosition = GetReference<Vector3>("MoveDirection");
+
+            Rotate();
             Move();
         }
 
@@ -41,8 +44,9 @@ namespace _SYSTEMS_._Character_Controller_.States
 
         public void Rotate()
         {
-            var direction = _targetPosition - transform.position.normalized;
-            direction.y = transform.position.y;
+            var position = transform.position;
+            var direction = ((_targetPosition + position) - position);
+            direction.y = position.y;
             
             var targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 

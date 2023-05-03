@@ -10,15 +10,18 @@ namespace _SYSTEMS_._Character_Controller_
 
         private InputController _inputController;
         private StateManager _manager;
+        private StateMachine _stateMachine;
         
         private void Awake()
         {
+            _stateMachine = GetComponent<StateMachine>();
             _manager = GetComponent<StateManager>();
             raycastChecker = GetComponentInChildren<IRaycastChecker>();
         }
         
         private void FixedUpdate()
         {
+            _stateMachine.SetReference("MoveDirection", InputController.Instance.MovementDirection());
             if (InputController.Instance.MovementDirection().magnitude > 0)
                 _manager.TransitionToState(_manager.states[1]);
             else 

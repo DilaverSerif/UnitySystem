@@ -12,7 +12,8 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int MoveSpeed = Animator.StringToHash("MoveSpeed");
     private void Awake()
     {
-        animator = GetComponentInChildren<Animator>();
+        if(animator == null)
+            animator = GetComponentInChildren<Animator>();
     }
 
     private void Update()
