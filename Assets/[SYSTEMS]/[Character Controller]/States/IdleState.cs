@@ -15,7 +15,7 @@ namespace _SYSTEMS_._Character_Controller_.States
             if(_playerMovementData != null) return;
             _playerMovementData = GetReference<PlayerMovementData>("MoveData");
             _characterController = GetReference<CharacterController>("CharacterController");
-            _targetPosition = GetReference<Vector3>("MoveDirection");
+           
         }
 
         public override void OnExit()
@@ -30,28 +30,29 @@ namespace _SYSTEMS_._Character_Controller_.States
 
         public override void OnTick()
         {
-            if (transform.position.GetDistanceTo(_targetPosition) > 0.1f)
-            {
-                Rotate();
-                Move();
-            }
+            // if (transform.position.GetDistanceTo(_targetPosition) > 0.1f)
+            // {
+            //     _targetPosition = GetReference<Vector3>("MoveDirection");
+            //     Rotate();
+            //     Move();
+            // }
         }
         
         public void Move()
         {
-            //Move to target position with ridigbody
-            var move = _targetPosition * (_playerMovementData.movementSpeed * Time.deltaTime);
-            _characterController.Move(move);
+            // var move = _targetPosition * (_playerMovementData.movementSpeed * Time.deltaTime);
+            // _characterController.Move(move);
         }
 
         public void Rotate()
         {
-            var direction = _targetPosition - transform.position.normalized;
-            direction.y = transform.position.y;
-            
-            var targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
-                _playerMovementData.rotationSpeed * Time.deltaTime);
+            // var position = transform.position;
+            // var direction = (_targetPosition + position) - position;
+            // direction.y = 0;
+            //
+            // var targetRotation = Quaternion.LookRotation(direction);
+            // transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 
+            //     _playerMovementData.rotationSpeed * Time.deltaTime);
         }
 
         public void Stop()

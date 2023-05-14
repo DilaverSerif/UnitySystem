@@ -1,5 +1,6 @@
 using System;
 using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
+using _SYSTEMS_._InventorySystem_.Abstract;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

@@ -1,7 +1,7 @@
 using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension;
 using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Interface;
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.ScriptableO;
 using _SYSTEMS_._InventorySystem_.Extension;
+using _SYSTEMS_._InventorySystem_.ScriptableO;
 using UnityEngine;
 namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items
 {
@@ -21,7 +21,7 @@ namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items
 
 		public void Sell(ref Inventory inventory)
 		{
-			inventory.AddGold(price);
+			//inventory.AddGold(price);
 			inventory.SellItem(this);
 		}
 	}

@@ -12,5 +12,6 @@ namespace _SYSTEMS_._Character_Controller_
 
         public RayData DownData;
         public RayData ForwardData;
+        public float Gravity;
     }
 }

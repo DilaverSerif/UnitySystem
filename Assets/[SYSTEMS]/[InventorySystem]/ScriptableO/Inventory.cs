@@ -5,7 +5,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.ScriptableO
+namespace _SYSTEMS_._InventorySystem_.ScriptableO
 {
 	public enum InventoryOwner
 	{
@@ -55,10 +55,11 @@ namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.ScriptableO
 			InventoryArray = new Item[(int)inventorySize.x, (int)inventorySize.y];
 		}
 
-		public void CreateInventory(Vector2 size,InventoryOwner owner)
+		public void CreateInventory(Vector2 size,InventoryOwner owner,int maxItemCount = 64)
 		{
 			inventoryOwner = owner;
 			inventorySize = size;
+			this.maxItemCount = maxItemCount;
 			InventoryArray = new Item[(int)inventorySize.x, (int)inventorySize.y];
 		}
 		

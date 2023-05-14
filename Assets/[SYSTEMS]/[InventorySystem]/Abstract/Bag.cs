@@ -1,4 +1,4 @@
-﻿using _GAME_.Scripts._SYSTEMS_._InventorySystem_.ScriptableO;
+﻿using _SYSTEMS_._InventorySystem_.ScriptableO;
 using UnityEngine;
 
 namespace _SYSTEMS_._InventorySystem_.Abstract

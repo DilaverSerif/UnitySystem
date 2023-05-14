@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using _SYSTEMS_._Interaction_System_.Abstract;
 using _SYSTEMS_._State_System_.Abstract;
 using UnityEngine;
 
@@ -10,6 +12,9 @@ namespace _SYSTEMS_._Character_Controller_.States
         private Vector3 _targetPosition;
         private PlayerMovementData _playerMovementData;
         
+        public List<InteractionBase<IUsable>> usableInteractions;
+        public IUsable currentInteraction;
+
         public override void OnTick()
         {
             _targetPosition = GetReference<Vector3>("MoveDirection");
@@ -30,6 +35,19 @@ namespace _SYSTEMS_._Character_Controller_.States
         {
             
         }
+        
+        private void Interaction()
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if(currentInteraction == null) return;
+                
+                foreach (var interaction in usableInteractions)
+                {
+                    interaction.TouchInteract(currentInteraction);
+                }
+            }
+        }
 
         public override void OnFixedTick()
         {
@@ -46,7 +64,7 @@ namespace _SYSTEMS_._Character_Controller_.States
         {
             var position = transform.position;
             var direction = ((_targetPosition + position) - position);
-            direction.y = position.y;
+            direction.y = 0;
             
             var targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 

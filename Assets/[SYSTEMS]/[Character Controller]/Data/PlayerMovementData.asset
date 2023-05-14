@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3360d8cfe84b4f74bd27742d2bd1f61e, type: 3}
   m_Name: PlayerMovementData
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  movementSpeed: 5
   jumpForce: 10
-  rotationSpeed: 10
+  rotationSpeed: 50
   DownData: {fileID: 11400000, guid: be599acd904b1c34da9929cb9c395263, type: 2}
-  ForwardData: {fileID: 0}
+  ForwardData: {fileID: 11400000, guid: b9e03923757438249b8a7e7407e09195, type: 2}
+  Gravity: -9.81

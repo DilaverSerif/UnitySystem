@@ -17,7 +17,6 @@ namespace _SYSTEMS_._State_System_.Abstract
         private StateMachine _stateMachine;
         protected Transform transform;
         
-        public List<InteractionBase<MonoBehaviour>> interactionBases;
         
         public void SetStateMachine(StateMachine stateMachine)
         {

@@ -3,5 +3,6 @@
     public interface ICollectableBase
     {
         void Effect();
+        void Collect();
     }
 }

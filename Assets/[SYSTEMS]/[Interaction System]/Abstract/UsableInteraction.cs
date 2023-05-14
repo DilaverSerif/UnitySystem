@@ -20,5 +20,10 @@ namespace _SYSTEMS_._Interaction_System_.Abstract
         {
             "Effect".Log(SystemsEnum.GameSystem);
         }
+
+        public void Collect()
+        {
+            "Collect".Log(SystemsEnum.GameSystem);
+        }
     }
 }

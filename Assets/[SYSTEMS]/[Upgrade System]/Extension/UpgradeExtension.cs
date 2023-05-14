@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
+using _SYSTEMS_._InventorySystem_.Abstract;
 using _SYSTEMS_._Upgrade_System_.Class;
 using _SYSTEMS_._Upgrade_System_.ScriptableO;
 using UnityEngine;

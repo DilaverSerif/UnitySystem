@@ -1,6 +1,6 @@
 ﻿using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.ScriptableO;
 using _SYSTEMS_._InventorySystem_.Extension;
+using _SYSTEMS_._InventorySystem_.ScriptableO;
 using UnityEngine;
 
 namespace _SYSTEMS_._InventorySystem_._Marketing_System_

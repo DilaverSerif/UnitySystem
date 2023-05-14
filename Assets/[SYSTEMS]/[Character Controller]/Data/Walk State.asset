@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a347432c9bde84b96250ef9c82eaf3, type: 3}
   m_Name: Walk State
   m_EditorClassIdentifier: 
+  usableInteractions:
+  - {fileID: 11400000, guid: 4b34584bda82463469562c22ad0ab4a9, type: 2}

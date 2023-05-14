@@ -1,5 +1,5 @@
 using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.ScriptableO;
+using _SYSTEMS_._InventorySystem_.ScriptableO;
 
 namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension
 {
