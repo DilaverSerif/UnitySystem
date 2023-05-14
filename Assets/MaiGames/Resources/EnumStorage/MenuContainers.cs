@@ -1,0 +1,1 @@
+public enum Mai_MenuContainers{ None, StartMenu}
