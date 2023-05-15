@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _SYSTEMS_.Extension;
 using MaiBase;
@@ -11,6 +12,15 @@ namespace _SYSTEMS_._Menu_System_
         public MenuContainer[] Containers;
         [ShowInInspector]
         public Dictionary<string, GameObject> MenuItems = new Dictionary<string, GameObject>();
+
+        [Title("Menu Objects")]
+        public GameObject StartMenu;
+        public GameObject PauseMenu;
+
+        private void Awake()
+        {
+            Instantiate(StartMenu,Vector3.zero,Quaternion.identity,transform);
+        }
 
         [Button]
         private void PullContainers()

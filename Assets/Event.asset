@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13a347432c9bde84b96250ef9c82eaf3, type: 3}
-  m_Name: Walk State
+  m_Script: {fileID: 11500000, guid: 81bf4e2966d246e9889b7f2144234ac8, type: 3}
+  m_Name: Event
   m_EditorClassIdentifier: 
-  interactionLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
+  EventAction:
+    m_PersistentCalls:
+      m_Calls: []

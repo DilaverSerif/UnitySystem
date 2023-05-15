@@ -72,6 +72,7 @@ namespace _SYSTEMS_._Building_System_.Abstract
 
         protected virtual void SetCountText()
         {
+            if(upgradeData == null) return;
             if (upgradeData.IsFinish()) return;
 
             var prodText = "";
