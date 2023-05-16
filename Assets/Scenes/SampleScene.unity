@@ -257,6 +257,8 @@ GameObject:
   - component: {fileID: 186244984}
   - component: {fileID: 186244989}
   - component: {fileID: 186244990}
+  - component: {fileID: 186244991}
+  - component: {fileID: 186244992}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -434,6 +436,34 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1.15, z: 0}
+--- !u!114 &186244991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186244981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9de56e6eec10f84a9859351b0093232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theInventory: {fileID: 11400000, guid: 4925d5081c5de0245bf3e227bd1703f0, type: 2}
+  leftHandInventory: {fileID: 0}
+  rightHandInventory: {fileID: 0}
+--- !u!114 &186244992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186244981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46d01604b02ceea41812d2763fbe058c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetInventory: {fileID: 11400000, guid: 4925d5081c5de0245bf3e227bd1703f0, type: 2}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,7 +542,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: 0.38548744, y: -0.000000015876555, z: 0.000000006632845, w: 0.9227131}
+  m_LocalRotation: {x: 0.38548744, y: 0.000000015876552, z: -0.0000000066328436, w: 0.9227131}
   m_LocalPosition: {x: 0, y: 12, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1145,7 +1175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1225,7 +1255,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809361475}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 0.2}
@@ -1492,7 +1522,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1187384668}
-  m_LocalRotation: {x: 0.38548744, y: -0.000000015876555, z: 0.000000006632845, w: 0.9227131}
+  m_LocalRotation: {x: 0.38548744, y: 0.000000015876552, z: -0.0000000066328436, w: 0.9227131}
   m_LocalPosition: {x: 0, y: 12, z: -9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2113,7 +2143,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2045396844}
-  - component: {fileID: 2045396845}
   m_Layer: 0
   m_Name: Raf
   m_TagString: Untagged
@@ -2139,28 +2168,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2045396845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2045396843}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23a4b4cb927450409928b11db071583, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upgradeData: {fileID: 0}
-  dropDelay: 0.15
-  upgradeParts: []
-  productionCountText: {fileID: 0}
-  OnUpgradeFinished:
-    m_PersistentCalls:
-      m_Calls: []
-  shelfInventory: {fileID: 0}
-  shelfCapacity: 0
-  shelfLevel: 0
 --- !u!4 &6263143272607420
 Transform:
   m_ObjectHideFlags: 0

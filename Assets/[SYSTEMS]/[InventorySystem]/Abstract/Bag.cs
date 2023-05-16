@@ -5,14 +5,14 @@ namespace _SYSTEMS_._InventorySystem_.Abstract
 {
     public abstract class Bag : MonoBehaviour
     {
-        public Inventory[] Inventories;
-        public Inventory theBag=> Inventories[0];
+        public Inventory[] inventories;
+        public Inventory CurrentInventory=> inventories[0];
 
         protected virtual void Awake()
         {
-            for (var index = 0; index < Inventories.Length; index++)
+            for (var index = 0; index < inventories.Length; index++)
             {
-                Inventories[index] = Instantiate(Inventories[index]);
+                inventories[index] = Instantiate(inventories[index]);
             }
         }
     }

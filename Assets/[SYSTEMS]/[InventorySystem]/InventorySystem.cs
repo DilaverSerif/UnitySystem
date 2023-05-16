@@ -1,12 +1,14 @@
 using System;
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
+using _SYSTEMS_._InventorySystem_.Items;
 using UnityEngine;
 
-namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_
+namespace _SYSTEMS_._InventorySystem_
 {
     public static class InventorySystem
     {
-        public static Action<Item> OnUsedAnItem;
+        public static Action<Item,int> OnUsedAnItem;
+        public static Action<Item,int> OnSoldItem;
+        
         public static Action<Item> OnAddedNewItem;
         public static Action<Item> OnRemovedItem;
         

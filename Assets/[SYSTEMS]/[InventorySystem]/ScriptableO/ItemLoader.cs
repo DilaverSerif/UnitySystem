@@ -1,4 +1,4 @@
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
+using _SYSTEMS_._InventorySystem_.Items;
 using _SYSTEMS_.Extension;
 using UnityEngine;
 

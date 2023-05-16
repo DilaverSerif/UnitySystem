@@ -1,10 +1,8 @@
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_;
 using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension;
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Interface;
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
+using _SYSTEMS_._InventorySystem_.Items;
 using _SYSTEMS_._InventorySystem_.ScriptableO;
 using _SYSTEMS_.Extension;
-using UnityEngine;
+
 
 namespace _SYSTEMS_._InventorySystem_.Extension
 {
@@ -15,41 +13,57 @@ namespace _SYSTEMS_._InventorySystem_.Extension
             if (!inventory.SlotIsEmpty(slot))
                 return null;
 
-            inventory.InventoryArray[slot.x, slot.y] = item;
-
-            if (item is IStackable stackableItem)
-                item.currentStackCount += amount;
-
-            if (inventory.inventoryOwner == InventoryOwner.Player)
-                InventorySystem.OnAddedNewItem?.Invoke(item);
-
+            inventory.InventoryArray[slot.x, slot.y] = new InventoryItem(item, inventory);
+            ("Item added: " + item.name).Log(SystemsEnum.InventorySystem);
             return item;
         }
 
 
-        public static bool AutoAddNewItem(this Inventory inventory, Item item, int amount = 1)
+        public static bool AutoAddNewItem(this Inventory inventory, Item item)
         {
             if (inventory.IsFull()) return false;
 
-            if (inventory.GetItem(item) is IStackable stackable)
+            var inventoryItem = inventory.GetItem(item);
+
+
+            if (inventoryItem != null)
             {
-                item = stackable as Item;
-                stackable.AddCount(amount);
-                $"{item.itemName} count: {item.currentStackCount}".Log(SystemsEnum.InventorySystem);
-
-                if (inventory.inventoryOwner == InventoryOwner.Player)
-                    InventorySystem.OnAddedNewItem?.Invoke(item);
-
+                inventoryItem.AddItem(item.amount);
                 return true;
             }
 
-            //Item yoksa
-            if (!inventory.GetEmptySlot().Empty)
-                return false;
 
-            var clonedItem = Object.Instantiate(item);
-            inventory.AddItem(clonedItem, inventory.GetEmptySlot().Slot, amount);
+            inventory.AddItem(item, inventory.GetEmptySlot().Slot);
             return true;
+        }
+
+        public static void RemoveItem(this Inventory inventory, Item item)
+        {
+            for (var x = 0; x < inventory.inventorySize.x; x++)
+            {
+                for (var y = 0; y < inventory.inventorySize.y; y++)
+                {
+                    if (inventory.InventoryArray[x, y] == null)
+                        continue;
+
+                    if (inventory.InventoryArray[x, y].Item.id != item.id)
+                        continue;
+
+                    inventory.InventoryArray[x, y] = null;
+                    return;
+                }
+            }
+        }
+
+        public static void ClearInventory(this Inventory inventory)
+        {
+            for (var x = 0; x < inventory.inventorySize.x; x++)
+            {
+                for (var y = 0; y < inventory.inventorySize.y; y++)
+                {
+                    inventory.InventoryArray[x, y] = null;
+                }
+            }
         }
     }
 }

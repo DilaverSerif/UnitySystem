@@ -1,18 +1,25 @@
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Interface;
+using _SYSTEMS_._Interaction_System_.Abstract;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
-namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items
+namespace _SYSTEMS_._InventorySystem_.Items
 {
-	[CreateAssetMenu(fileName = "New Stackable Item", menuName = "Inventory System/Items/Usable Item")]
-	public class UsableItem : Item, IUsable
-	{
-		public UnityEvent OnUse;
-		public virtual void Use()
-		{
-			OnUse.Invoke();
-			Debug.Log("Used");
-		}
-	}
+    [CreateAssetMenu(fileName = "New Item", menuName = "Inventory System/Create An UsableItem")]
+    public class UsableItem : Item, IUsable
+    {
+        [BoxGroup("Item Data/Usable")]
+        public UnityEvent onUse;
+        [BoxGroup("Item Data/Usable")]
+        public UnityEvent onStopUse;
+        public void Use()
+        {
+            onUse?.Invoke();
+        }
+
+        public void StopUse()
+        {
+            onStopUse?.Invoke();
+        }
+    }
 }

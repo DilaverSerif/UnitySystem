@@ -19,7 +19,7 @@ namespace _SYSTEMS_._Menu_System_
 
         private void Awake()
         {
-            Instantiate(StartMenu,Vector3.zero,Quaternion.identity,transform);
+            //Instantiate(StartMenu,Vector3.zero,Quaternion.identity,transform);
         }
 
         [Button]

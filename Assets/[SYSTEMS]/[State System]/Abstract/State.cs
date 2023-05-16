@@ -38,6 +38,21 @@ namespace _SYSTEMS_._State_System_.Abstract
         {
             return _stateMachine.StartCoroutine(coroutine);
         }
+        
+        protected void StopCoroutine(Coroutine coroutine)
+        {
+            _stateMachine.StopCoroutine(coroutine);
+        }
+        
+        public virtual void OnDrawGizmosSelected()
+        {
+            
+        }
+        
+        public virtual void OnDrawGizmos()
+        {
+            
+        }
 
         public abstract void OnTick();
         public abstract void OnEnter();

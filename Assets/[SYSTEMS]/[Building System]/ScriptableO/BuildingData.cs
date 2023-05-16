@@ -1,9 +1,8 @@
 ﻿using System;
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
-using _SYSTEMS_._InventorySystem_.Abstract;
+using _SYSTEMS_._InventorySystem_.Items;
 using UnityEngine;
 
-namespace _GAME_.Scripts._SYSTEMS_._Building_System_.ScriptableO
+namespace _SYSTEMS_._Building_System_.ScriptableO
 {
 	[CreateAssetMenu(menuName = "Building System/Create BuildingData", fileName = "BuildingData", order = 0)]
 	public class BuildingData : ScriptableObject

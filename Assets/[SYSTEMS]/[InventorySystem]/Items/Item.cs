@@ -1,8 +1,9 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items
+namespace _SYSTEMS_._InventorySystem_.Items
 {
+	[CreateAssetMenu(fileName = "New Item", menuName = "Inventory System/Create An Item")]
 	public class Item : ScriptableObject
 	{
 		[BoxGroup("Item Data")]
@@ -12,11 +13,10 @@ namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items
 		public string itemName;
 		[BoxGroup("Item Data/Sellable")] 
 		public int price;
-		[BoxGroup("Item Data/Stackable"),ReadOnly]
-		public int currentStackCount;
 		[BoxGroup("Item Data/Stackable")] 
 		public int maxStackCount;
-		
+		[BoxGroup("Item Data/Stackable")] 
+		public int amount = 1;
 		[PreviewField(35, ObjectFieldAlignment.Center)]
 		[BoxGroup("Item Data/Visual")]
 		public Sprite icon;
@@ -24,5 +24,10 @@ namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items
 		[PreviewField(35, ObjectFieldAlignment.Center)]
 		[BoxGroup("Item Data/Visual")]
 		public GameObject prefab;
+		
+		[ShowInInspector, ReadOnly, BoxGroup("Item Data/Stackable")]
+		public bool IsStackable => maxStackCount > 1;
+		[ShowInInspector, ReadOnly, BoxGroup("Item Data/Sellable")]
+		public bool IsSellable => price > 0;
 	}
 }

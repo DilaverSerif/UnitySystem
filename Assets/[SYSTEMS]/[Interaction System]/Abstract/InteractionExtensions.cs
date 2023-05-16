@@ -6,7 +6,7 @@ namespace _SYSTEMS_._Interaction_System_.Abstract
     public static class InteractionExtensions
     {
         public static InteractionData<T> GetInteractions<T>(this Transform CanInteract,
-            Vector3 startPoint, float radius,LayerMask layerMask,int maxResult = 1) where T : Component
+            Vector3 startPoint, float radius,LayerMask layerMask,int maxResult = 1)
         {
             var results = new Collider[maxResult];
             Physics.OverlapSphereNonAlloc(startPoint, radius, results,layerMask);
@@ -16,14 +16,14 @@ namespace _SYSTEMS_._Interaction_System_.Abstract
             return dataResults;
         }
         
-        public struct InteractionData<T> where T : Component
+        public struct InteractionData<T>
         {
             public T[] Interactions;
             public int ContactCount;
             
             internal void SetInteractions(ref Collider[] interactions)
             {
-                if (interactions == null || interactions.Length == 0)
+                if (interactions[0] == null)
                 {
                     Interactions = null;
                     ContactCount = 0;

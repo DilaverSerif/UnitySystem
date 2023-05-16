@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -93,6 +94,22 @@ namespace _SYSTEMS_._State_System_.Abstract
         {
             currentState = state;
             currentState.OnEnter();
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (currentState == null) 
+                return;
+
+            currentState.OnDrawGizmos();
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (currentState == null) 
+                return;
+
+            currentState.OnDrawGizmosSelected();
         }
     }
 }

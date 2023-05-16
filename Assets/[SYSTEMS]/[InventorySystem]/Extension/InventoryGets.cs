@@ -1,10 +1,16 @@
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Interface;
-using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Items;
+using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension;
+using _SYSTEMS_._InventorySystem_.Items;
 using _SYSTEMS_._InventorySystem_.ScriptableO;
-using UnityEngine;
+using _SYSTEMS_.Extension;
 
-namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension
+namespace _SYSTEMS_._InventorySystem_.Extension
 {
+	public enum ItemState
+	{
+		NotEnough,
+		ThereIs,
+		None
+	}
 	public static class InventoryGets
 	{
 		public static SlotData GetEmptySlot(this Inventory inventory)
@@ -24,8 +30,9 @@ namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension
 
 			return default(SlotData);
 		}
-
-		public static Item GetItem(this Inventory inventory, Item itemData)
+		
+		public static InventoryItem GetInventoryItemBySlot(this Inventory inventory,
+			Item item)
 		{
 			for (var x = 0; x < inventory.inventorySize.x; x++)
 			{
@@ -34,18 +41,17 @@ namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension
 					if (inventory.InventoryArray[x, y] == null)
 						continue;
 
-					if (inventory.InventoryArray[x, y].id == itemData.id)
+					if (inventory.InventoryArray[x, y].Item.id == item.id)
 					{
 						return inventory.InventoryArray[x, y];
 					}
 				}
 			}
 
-			Debug.Log("Item not found");
 			return null;
 		}
 		
-		public static Item GetItemById(this Inventory inventory, int index)
+		public static ItemState CheckItem(this Inventory inventory, Item itemData, int count = 1)
 		{
 			for (var x = 0; x < inventory.inventorySize.x; x++)
 			{
@@ -54,61 +60,102 @@ namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension
 					if (inventory.InventoryArray[x, y] == null)
 						continue;
 
-					if (inventory.InventoryArray[x, y].id == index)
+					if (inventory.InventoryArray[x, y].Item.id == itemData.id)
+					{
+						return inventory.InventoryArray[x, y].count >= count
+							? ItemState.ThereIs
+							: ItemState.NotEnough;
+					}
+				}
+			}
+
+			return ItemState.None;
+		}
+
+		public static InventoryItem GetItem(this Inventory inventory, Item itemData)
+		{
+			for (var x = 0; x < inventory.inventorySize.x; x++)
+			{
+				for (var y = 0; y < inventory.inventorySize.y; y++)
+				{
+					if (inventory.InventoryArray[x, y] == null)
+						continue;
+
+					if (inventory.InventoryArray[x, y].Item.id == itemData.id)
 					{
 						return inventory.InventoryArray[x, y];
 					}
 				}
 			}
 
-			Debug.Log("Item not found");
+			"Item not found".Log(SystemsEnum.InventorySystem);
 			return null;
 		}
 		
-		public static int GetCurrentCount(this Inventory inventory, Item itemData)
+		public static InventoryItem GetItemById(this Inventory inventory, int index)
 		{
-			var getItem = inventory.GetItem(itemData);
+			for (var x = 0; x < inventory.inventorySize.x; x++)
+			{
+				for (var y = 0; y < inventory.inventorySize.y; y++)
+				{
+					if (inventory.InventoryArray[x, y] == null)
+						continue;
+
+					if (inventory.InventoryArray[x, y].Item.id == index)
+					{
+						return inventory.InventoryArray[x, y];
+					}
+				}
+			}
+
+			"Item not found".Log(SystemsEnum.InventorySystem);
+			return null;
+		}
+		
+		public static int GetCurrentItemCount(this Inventory inventory, InventoryItem itemData)
+		{
+			var getItem = inventory.GetItem(itemData.Item);
 			
 			if (getItem == null)
 			{
-				Debug.Log("Item not found");
+				"Item not found".Log(SystemsEnum.InventorySystem);
 				return 0;
 			}
 
-			return getItem.currentStackCount;
+			return itemData.count;
 		}	
 		
-		public static int GetCurrentCountByIndex(this Inventory inventory, int index)
+		public static int GetCurrentItemCount(this Inventory inventory, int index)
 		{
 			var getItem = inventory.GetItemById(index);
-			return getItem == null ? 0 : inventory.GetCurrentCount(getItem);
+			return getItem == null ? 0 : inventory.GetCurrentItemCount(getItem);
 		}	
 
-		public static Item GetItemBySlot(this Inventory inventory, InventorySlot slot)
+		public static InventoryItem GetItemBySlot(this Inventory inventory, InventorySlot slot)
 		{
 			if (inventory == null)
 			{
-				Debug.LogError("Inventory Sytem: Null Inventory");
+				"Inventory Sytem: Null Inventory".Log(SystemsEnum.InventorySystem);
 				return null;
 			}
 			var check = inventory.InventoryArray[slot.x, slot.y];
 			if (check != null) return inventory.InventoryArray[slot.x, slot.y];
 
-			Debug.Log("Slot is empty");
+			"Item not found".Log(SystemsEnum.InventorySystem);
 			return null;
 		}
 
-		public static int GetCurrentItemCount(this Inventory inventory)
+		public static int GetCurrentItemCountAllInventory(this Inventory inventory)
 		{
 			var totalCurrentCount = 0;
 
-			foreach (var item in inventory.InventoryArray)
+			foreach (var inventoryItem in inventory.InventoryArray)
 			{
-				if (item == null)
+				if (inventoryItem == null)
 					continue;
 
-				if (item is IStackable)
-					totalCurrentCount += item.currentStackCount;
+				if (inventoryItem.Item.IsStackable)
+					totalCurrentCount += inventoryItem.count;
 				else totalCurrentCount++;
 			}
 
@@ -117,7 +164,7 @@ namespace _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension
 
 		public static bool IsFull(this Inventory inventory)
 		{
-			return inventory.GetCurrentItemCount() >= inventory.maxItemCount;
+			return inventory.GetCurrentItemCountAllInventory() >= inventory.maxItemCount;
 		}
 
 		public struct SlotData

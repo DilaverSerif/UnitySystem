@@ -1,6 +1,7 @@
 using System.Collections;
-using _SYSTEMS_._InventorySystem_._Marketing_System_;
+using _SYSTEMS_._Interaction_System_.Abstract;
 using _SYSTEMS_._InventorySystem_.Abstract;
+using _SYSTEMS_._InventorySystem_.Extension;
 using _SYSTEMS_._Upgrade_System_.Extension;
 using _SYSTEMS_._Upgrade_System_.ScriptableO;
 using _SYSTEMS_.Extension;
@@ -12,22 +13,23 @@ using UnityEngine.Events;
 
 namespace _SYSTEMS_._Building_System_.Abstract
 {
-    public class UpgradableBuilding : MonoBehaviour
+    public abstract class UpgradableBuilding : MonoBehaviour, IUsable
     {
         [Title("Upgrade Trigger Data")] public Upgrade upgradeData;
 
         public float dropDelay = 0.15f;
-
-        public Transform[] upgradeParts;
+        public bool bulkDrop;
         private Upgrade _targetUpgrade;
 
         private Coroutine _upgradeCoroutine;
         protected WaitForSeconds WaitForUpgradeDelay;
 
-        [ReadOnly, BoxGroup("Upgrade UI")] public TextMeshProUGUI productionCountText;
+        [ReadOnly, BoxGroup("Upgrade UI")] 
+        public TextMeshProUGUI productionCountText;
         
-        public UnityEvent OnUpgradeFinished;
-        
+        public UnityEvent<int> OnUpgradeFinished;
+        protected bool ContinueUpgrade;
+        protected Bag CurrentBag;
         protected virtual void Awake()
         {
             if(upgradeData == null)
@@ -50,27 +52,35 @@ namespace _SYSTEMS_._Building_System_.Abstract
             if(upgradeData == null) return;
             if (upgradeData.IsFinish()) return;
             upgradeData.upgradeEffect.AddListener(UpgradeFinished);
+            OnUpgradeFinished.AddListener(LevelUp);
         }
 
         protected virtual void OnDisable()
         {
             if(upgradeData == null) return;
             upgradeData.upgradeEffect.RemoveListener(UpgradeFinished);
+            OnUpgradeFinished.RemoveListener(LevelUp);
         }
 
         protected virtual void OnTriggerEnter(Collider other)
         {
             if (other.TryGetComponent(out Bag component))
-                OnWorkShopEnter(ref component);
+                CurrentBag = component;
         }
         
         protected virtual void OnTriggerExit(Collider other)
         {
-            if (other.TryGetComponent(out Bag component))
-                OnWorkShopExit(ref component);
+            if (!other.TryGetComponent(out Bag component)) return;
+            
+            ContinueUpgrade = false;
+            CurrentBag = null;
         }
+        
+        /**
+         * Gerekli olan itemlerin adlarini ve sayilarini UI'da gosterir.
+         */
 
-        protected virtual void SetCountText()
+        protected virtual void SetCountText() 
         {
             if(upgradeData == null) return;
             if (upgradeData.IsFinish()) return;
@@ -84,63 +94,79 @@ namespace _SYSTEMS_._Building_System_.Abstract
 
             productionCountText.text = prodText;
         }
+        
+        protected virtual IEnumerator Upgrade(Bag component)
+        {
+            while (GetItem(ref component) & ContinueUpgrade) //Gerekli itemler var mı? Check eder
+            {
+                yield return WaitForUpgradeDelay;
+                SetCountText();
+            }
 
-        protected virtual bool GetItem(ref Bag playerBag) //Upgrade icin gerekli itemler var mı?
+            _upgradeCoroutine = null;
+            ContinueUpgrade = false;
+
+            if (!upgradeData.IsFinish()) yield break;
+            productionCountText.DOFade(0, 0.25f);
+        }
+        
+        /**
+         * Upgrade icin gerekli itemler var mı?
+         */
+        protected virtual bool GetItem(ref Bag playerBag)
         {
             var items = upgradeData.GetNecessaryItems();
             if (items == null) return false;
 
             foreach (var item in items)
             {
-                if (!playerBag.theBag.GiveItem(item, playerBag.transform.position, transform.position))
+                if (!playerBag.CurrentInventory.GiveItem(item, playerBag.transform.position, transform.position))
                     continue;
 
                 upgradeData.AddCount(item);
-                //TODO: Toplu item atma acip kapama
-                return true;
+               
+                if(bulkDrop) //Toplu item atma acip kapama
+                    return true;
             }
             
             return true;
         }
-
-        protected virtual IEnumerator Upgrade(Bag component)
-        {
-            while (GetItem(ref component)) //Gerekli itemler var mı?
-            {
-                yield return WaitForUpgradeDelay;
-                SetCountText();
-            }
-
-            if (upgradeData.IsFinish())
-                productionCountText.DOFade(0, 0.25f);
-            _upgradeCoroutine = null;
-        }
-
+        
         protected virtual void UpgradeFinished(int level)
         {
-            ("Upgrade Finished: " + level).Log(SystemsEnum.MarketingSystem);
-            if (upgradeParts.Length <= level) return;
-            
-            foreach (var part in upgradeParts)
-                part.gameObject.SetActive(false);
-            
-            
-            OnUpgradeFinished?.Invoke();
-            upgradeParts[level].gameObject.SetActive(true);
+            ("Upgrade Finished: " + level).Log(SystemsEnum.CraftingSystem);
+            OnUpgradeFinished?.Invoke(level);
         }
         
-        protected virtual void OnWorkShopEnter(ref Bag component)
+        protected abstract void LevelUp(int level);
+        
+        protected virtual void OnWorkShopEnter()
         {
             if (upgradeData.IsFinish()) return;
-            if (_upgradeCoroutine != null) return;
-            _upgradeCoroutine = StartCoroutine(Upgrade(component));
+            if (_upgradeCoroutine != null)
+            {
+                StopCoroutine(_upgradeCoroutine);
+                _upgradeCoroutine = null;
+            }
+            
+            _upgradeCoroutine = StartCoroutine(Upgrade(CurrentBag));
         }
 
-        protected virtual void OnWorkShopExit(ref Bag component)
+        protected virtual void OnWorkShopExit()
         {
-            if (_upgradeCoroutine != null)
-                StopCoroutine(_upgradeCoroutine);
             _upgradeCoroutine = null;
+            ContinueUpgrade = false;
+        }
+
+        public void Use()
+        {
+            ContinueUpgrade = true;
+            OnWorkShopEnter();
+        }
+
+        public void StopUse()
+        {
+            OnWorkShopExit();
         }
     }
 }
