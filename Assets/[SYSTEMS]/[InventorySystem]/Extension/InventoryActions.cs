@@ -1,4 +1,5 @@
 using _GAME_.Scripts._SYSTEMS_._InventorySystem_.Extension;
+using _SYSTEMS_._Interaction_System_.Abstract;
 using _SYSTEMS_._InventorySystem_.Items;
 using _SYSTEMS_._InventorySystem_.ScriptableO;
 using _SYSTEMS_.Extension;
@@ -23,8 +24,24 @@ namespace _SYSTEMS_._InventorySystem_.Extension
                 return false;
             }
 
-            foundItem.SellItem(amount);
+            if (item == null) return false;
+            if (!item.IsSellable)
+                return false;
+
+            var price = item.price * amount;
+            foundItem.count -= amount;
             
+            //Add coin
+            if (inventory.inventoryOwner == InventoryOwner.Player)
+                InventorySystem.OnSoldItem?.Invoke(item, amount);
+            
+            if (foundItem.count > 0) return true;
+            if (inventory.inventoryOwner == InventoryOwner.Player)
+            {
+                InventorySystem.OnRemovedItem?.Invoke(item);
+            }
+            inventory.RemoveItem(item);
+
             return true;
         }
 
@@ -39,7 +56,20 @@ namespace _SYSTEMS_._InventorySystem_.Extension
                 return false;
             }
             
-            foundItem.UsedItem(amount);
+            if (item == null) return false;
+            if (item is IUsable usableItem)
+                usableItem.Use();
+            else return false;
+
+            foundItem.count -= amount;
+            if (foundItem.count > 0) 
+                return true;
+
+            if (inventory.inventoryOwner == InventoryOwner.Player)
+            {
+                InventorySystem.OnRemovedItem?.Invoke(item);
+                inventory.RemoveItem(item);
+            }
             
             return true;
         }

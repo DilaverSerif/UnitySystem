@@ -13,7 +13,7 @@ namespace _SYSTEMS_._InventorySystem_.Extension
             if (!inventory.SlotIsEmpty(slot))
                 return null;
 
-            inventory.InventoryArray[slot.x, slot.y] = new InventoryItem(item, inventory);
+            inventory.InventoryArray[slot.x, slot.y] = new InventoryItem(item);
             ("Item added: " + item.name).Log(SystemsEnum.InventorySystem);
             return item;
         }
@@ -28,7 +28,12 @@ namespace _SYSTEMS_._InventorySystem_.Extension
 
             if (inventoryItem != null)
             {
-                inventoryItem.AddItem(item.amount);
+                if (item == null) return false;
+                if (!item.IsStackable) return false;
+                inventoryItem.count += item.amount;
+                
+                if (inventoryItem.count > item.maxStackCount)
+                    inventoryItem.count = item.maxStackCount;
                 return true;
             }
 

@@ -12,6 +12,7 @@ namespace _SYSTEMS_._InventorySystem_.Items
         public UnityEvent onUse;
         [BoxGroup("Item Data/Usable")]
         public UnityEvent onStopUse;
+        
         public void Use()
         {
             onUse?.Invoke();

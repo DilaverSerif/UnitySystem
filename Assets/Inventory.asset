@@ -31,21 +31,6 @@ MonoBehaviour:
       Entry: 1
       Data: 5|5
     - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
-      Entry: 6
-      Data: 
-    - Name: 
       Entry: 7
       Data: 1|_SYSTEMS_._InventorySystem_.ScriptableO.InventoryItem, InventorySytem
     - Name: count
@@ -53,6 +38,21 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 8
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
+      Data: 
+    - Name: 
+      Entry: 6
       Data: 
     - Name: 
       Entry: 6

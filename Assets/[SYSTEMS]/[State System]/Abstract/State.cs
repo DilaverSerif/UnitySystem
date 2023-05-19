@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using _GAME_.Scripts._SYSTEMS_._Character_System_.Interface;
-using _SYSTEMS_._Interaction_System_.Abstract;
 using UnityEngine;
 
 namespace _SYSTEMS_._State_System_.Abstract
@@ -17,11 +15,11 @@ namespace _SYSTEMS_._State_System_.Abstract
         private StateMachine _stateMachine;
         protected Transform transform;
         
-        
         public void SetStateMachine(StateMachine stateMachine)
         {
             _stateMachine = stateMachine;
             transform = _stateMachine.transform;
+            Awake();
         }
 
         public T GetReference<T>(string key)
@@ -58,5 +56,13 @@ namespace _SYSTEMS_._State_System_.Abstract
         public abstract void OnEnter();
         public abstract void OnExit();
         public abstract void OnFixedTick();
+        public virtual void Awake()
+        {
+            
+        }
+        public virtual void Start()
+        {
+            
+        }
     }
 }

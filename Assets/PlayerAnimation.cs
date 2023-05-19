@@ -1,10 +1,9 @@
-using System;
-using _SYSTEMS_._Character_Controller_;
 using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
     public Animator animator;
+    public CharacterController characterController;
     
     private static readonly int IsWalking = Animator.StringToHash("isWalking");
     private static readonly int IsRunning = Animator.StringToHash("isRunning");
@@ -18,6 +17,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        animator.SetFloat(MoveSpeed, InputController.Instance.MovementDirection().magnitude);
+        animator.SetFloat(MoveSpeed, characterController.velocity.magnitude);
     }
 }

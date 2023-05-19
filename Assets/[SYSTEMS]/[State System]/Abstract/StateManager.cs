@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -38,6 +37,9 @@ namespace _SYSTEMS_._State_System_.Abstract
         private void Start()
         {
             TransitionToState(initialState);
+            
+            foreach (var state in states)
+                state.Start();
         }
 
         private void Update()
@@ -58,11 +60,14 @@ namespace _SYSTEMS_._State_System_.Abstract
 
         public void TransitionToState(State nextState)
         {
+            
             if (nextState == null)
             {
                 Debug.LogWarning("Null state provided for transition.");
                 return;
             }
+            
+            if(nextState == currentState) return;
             
             if(currentState != null)
                 currentState.OnExit();

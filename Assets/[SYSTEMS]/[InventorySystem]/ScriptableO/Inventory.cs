@@ -27,7 +27,7 @@ namespace _SYSTEMS_._InventorySystem_.ScriptableO
         public InventoryOwner inventoryOwner;
 
         [TableMatrix(HorizontalTitle = "Inventory Array",
-             SquareCells = true, DrawElementMethod = "DrawPieceMeshes"), ShowInInspector]
+             SquareCells = true, DrawElementMethod = "DrawElement"), ShowInInspector]
         public InventoryItem[,] InventoryArray;
 
         private static InventoryItem DrawElement(Rect rect, InventoryItem inventoryItem)
@@ -51,12 +51,12 @@ namespace _SYSTEMS_._InventorySystem_.ScriptableO
             GUI.Label(rect, content);
             return inventoryItem;
         }
-#if UNITY_EDITOR
-        private static InventoryItem DrawPieceMeshes(Rect rect, InventoryItem piece)
-        {
-            return Sirenix.Utilities.Editor.SirenixEditorFields.PreviewObjectField(rect, piece);
-        }
-#endif
+// #if UNITY_EDITOR
+//         private static InventoryItem DrawPieceMeshes(Rect rect, InventoryItem piece)
+//         {
+//             return Sirenix.Utilities.Editor.SirenixEditorFields.PreviewObjectField(rect, piece);
+//         }
+// #endif
         
         public void AllNull()
         {

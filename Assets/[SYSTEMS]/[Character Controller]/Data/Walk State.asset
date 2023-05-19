@@ -17,3 +17,7 @@ MonoBehaviour:
     m_Bits: 128
   radius: 5
   offsetPoint: {x: 0, y: 0, z: 0}
+  collector:
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 256

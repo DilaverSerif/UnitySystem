@@ -1,15 +1,16 @@
+using _SYSTEMS_._InventorySystem_.Abstract;
 using _SYSTEMS_._InventorySystem_.ScriptableO;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : Bag
 {
-    public Inventory theInventory;
     public Inventory leftHandInventory;
     public Inventory rightHandInventory;
 
-    private void Awake()
+    protected override void Awake()
     {
-        theInventory.AllNull();
+        base.Awake();
+        CurrentInventory.AllNull();
         // theInventory = ScriptableObject.CreateInstance<Inventory>();
         // theInventory.CreateInventory(Vector2.one * 5,InventoryOwner.Player);
         leftHandInventory = ScriptableObject.CreateInstance<Inventory>();

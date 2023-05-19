@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace _SYSTEMS_._Interaction_System_.Abstract
 {
-    public class CollectableItem : MonoBehaviour,IUsable
+    public class UsableItem : MonoBehaviour,IUsable
     {
         public void Use()
         {
