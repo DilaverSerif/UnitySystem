@@ -1,8 +1,8 @@
 ﻿namespace _SYSTEMS_._Interaction_System_.Abstract
 {
-    public interface IUsable
+    public interface IUsable<T>
     {
-        void Use();
-        void StopUse();
+        void Use(T target);
+        void StopUse(T target);
     }
 }

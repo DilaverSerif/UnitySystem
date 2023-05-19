@@ -3,7 +3,9 @@ using _SYSTEMS_._Interaction_System_.Abstract;
 using _SYSTEMS_._InventorySystem_.Abstract;
 using UnityEngine;
 using System.Collections;
-public class Trigger : MonoBehaviour,IUsable
+using _SYSTEMS_._Character_Controller_;
+
+public class Trigger : MonoBehaviour,IUsable<PlayerController>
 {
     public float time;
     public float MaxTime;
@@ -55,5 +57,14 @@ public class Trigger : MonoBehaviour,IUsable
     {
         
     }
-    
+
+    public void Use(PlayerController target)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void StopUse(PlayerController target)
+    {
+        throw new NotImplementedException();
+    }
 }

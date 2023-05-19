@@ -1,4 +1,5 @@
 using System.Collections;
+using _SYSTEMS_._Character_Controller_;
 using _SYSTEMS_._Interaction_System_.Abstract;
 using _SYSTEMS_._InventorySystem_.Abstract;
 using _SYSTEMS_._InventorySystem_.Extension;
@@ -13,7 +14,7 @@ using UnityEngine.Events;
 
 namespace _SYSTEMS_._Building_System_.Abstract
 {
-    public abstract class UpgradableBuilding : MonoBehaviour, IUsable
+    public abstract class UpgradableBuilding : MonoBehaviour, IUsable<PlayerController>
     {
         [Title("Upgrade Trigger Data")] public Upgrade upgradeData;
 
@@ -157,14 +158,14 @@ namespace _SYSTEMS_._Building_System_.Abstract
             _upgradeCoroutine = null;
             ContinueUpgrade = false;
         }
-
-        public void Use()
+        
+        public void Use(PlayerController target)
         {
             ContinueUpgrade = true;
             OnWorkShopEnter();
         }
 
-        public void StopUse()
+        public void StopUse(PlayerController target)
         {
             OnWorkShopExit();
         }

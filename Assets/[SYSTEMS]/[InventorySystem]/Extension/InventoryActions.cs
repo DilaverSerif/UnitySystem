@@ -57,8 +57,8 @@ namespace _SYSTEMS_._InventorySystem_.Extension
             }
             
             if (item == null) return false;
-            if (item is IUsable usableItem)
-                usableItem.Use();
+            if (item is IUsable<Inventory> usableItem)
+                usableItem.Use(inventory);
             else return false;
 
             foundItem.count -= amount;

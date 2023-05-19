@@ -1,4 +1,5 @@
 using _SYSTEMS_._InventorySystem_.Abstract;
+using _SYSTEMS_._InventorySystem_.Items;
 using _SYSTEMS_._State_System_.Abstract;
 using UnityEngine;
 
@@ -11,21 +12,18 @@ namespace _SYSTEMS_._Character_Controller_.States
         private PlayerMovementData _playerMovementData;
         private Vector3 _targetPosition;
         
-        private Collector _collector;
-        private Interacter _interacter;
+        private Collector<GameObject> _collector;
 
         public override void Start()
         {
-            _collector = new Collector(GetReference<Bag>("Inventory"), 2f, LayerMask.GetMask("Collectable"),
+            _collector = new Collector<GameObject>(transform.gameObject, transform, 2f, LayerMask.GetMask("Collectable"),
                 Vector3.zero);
-            _interacter = new Interacter(transform, 2f, LayerMask.GetMask("Interact"), Vector3.zero);
         }
 
         public override void OnTick()
         {
             _targetPosition = GetReference<Vector3>("MoveDirection");
             _collector.OnTickCollector();
-            _interacter.OnTickInteraction();
             Rotate();
             Move();
         }
@@ -82,8 +80,6 @@ namespace _SYSTEMS_._Character_Controller_.States
         {
             if(_collector != null)
                 _collector.OnDrawGizmos();
-            if(_interacter != null)
-                _interacter.OnDrawGizmos();
         }
     }
 }
