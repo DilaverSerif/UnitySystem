@@ -13,4 +13,25 @@ public class InventoryTest : MonoBehaviour
     {
         targetInventory.AutoAddNewItem(item);
     }
+    
+    [Button]
+    public void RemoveItem(Item item)
+    {
+        targetInventory.RemoveItem(item);
+    }
+    
+    [Button]
+    public void InventoryToText()
+    {
+        foreach (var inventoryItem in targetInventory.InventoryArray)
+        {
+            if (inventoryItem == null)
+            {
+                Debug.Log("Empty");
+                continue;
+            }
+            Debug.Log(inventoryItem.Item.name + " x" + inventoryItem.count);
+        }
+    }
+    
 }

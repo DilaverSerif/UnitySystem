@@ -8,11 +8,12 @@ namespace _SYSTEMS_._InventorySystem_.Items
     public class CollectableItem : MonoBehaviour, ICollectable
     {
         public Item dataItem;
-        
+
         public void Collect(Inventory inventory)
         {
             inventory.AutoAddNewItem(dataItem);
             gameObject.SetActive(false);
         }
     }
+    
 }

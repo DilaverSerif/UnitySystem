@@ -14,7 +14,7 @@ namespace _SYSTEMS_._InventorySystem_.Extension
                 return null;
 
             inventory.InventoryArray[slot.x, slot.y] = new InventoryItem(item);
-            ("Item added: " + item.name).Log(SystemsEnum.InventorySystem);
+            ("Item created: " + item.name + "x" + item.amount).Log(SystemsEnum.InventorySystem);
             return item;
         }
 
@@ -31,9 +31,11 @@ namespace _SYSTEMS_._InventorySystem_.Extension
                 if (item == null) return false;
                 if (!item.IsStackable) return false;
                 inventoryItem.count += item.amount;
-                
-                if (inventoryItem.count > item.maxStackCount)
-                    inventoryItem.count = item.maxStackCount;
+
+                if (inventoryItem.count > inventoryItem.Item.maxStackCount)
+                    inventoryItem.count = inventoryItem.Item.maxStackCount;
+
+                ("Item added: " + item.name + "x" + item.amount).Log(SystemsEnum.InventorySystem);
                 return true;
             }
 

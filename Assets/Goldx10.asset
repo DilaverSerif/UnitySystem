@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5737a56c824e4d10bf1ec1f5e9e29d3e, type: 3}
-  m_Name: Gold
+  m_Name: Goldx10
   m_EditorClassIdentifier: 
   id: 0
   itemName: Gold
   price: 1
   maxStackCount: 10000000
-  amount: 1
+  amount: 10
   icon: {fileID: 21300000, guid: 02800fb9cff14da47a04572790384d8b, type: 3}
   prefab: {fileID: 0}

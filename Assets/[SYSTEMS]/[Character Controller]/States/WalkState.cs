@@ -10,29 +10,33 @@ namespace _SYSTEMS_._Character_Controller_.States
         private CharacterController _characterController;
         private PlayerMovementData _playerMovementData;
         private Vector3 _targetPosition;
-        
-        private Collector _collector;
-        private Interacter _interacter;
 
-        public override void Start()
+        public Scanner[] collector;
+
+        public override void Awake()
         {
-            _collector = new Collector(GetReference<Bag>("Inventory"), 2f, LayerMask.GetMask("Collectable"),
-                Vector3.zero);
-            _interacter = new Interacter(transform, 2f, LayerMask.GetMask("Interact"), Vector3.zero);
+            base.Awake();
+            foreach (var scanner in collector)
+            {
+                scanner.OnSetup(ref _stateMachine);
+            }
+            
         }
 
         public override void OnTick()
         {
             _targetPosition = GetReference<Vector3>("MoveDirection");
-            _collector.OnTickCollector();
-            _interacter.OnTickInteraction();
+
+            foreach (var scanner in collector)
+                scanner.OnTick();
+
             Rotate();
             Move();
         }
 
         public override void OnEnter()
         {
-            if (_playerMovementData != null) 
+            if (_playerMovementData != null)
                 return;
 
             _playerMovementData = GetReference<PlayerMovementData>("MoveData");
@@ -51,8 +55,9 @@ namespace _SYSTEMS_._Character_Controller_.States
 
         public void Move()
         {
-            var move = transform.forward * (_playerMovementData.movementSpeed * Time.deltaTime);
-            _characterController.Move(move);
+            var move = transform.forward * (_playerMovementData.movementSpeed);
+            move.y = _playerMovementData.Gravity;
+            _characterController.Move(move * Time.deltaTime);
         }
 
         public void Rotate()
@@ -80,10 +85,10 @@ namespace _SYSTEMS_._Character_Controller_.States
 
         public override void OnDrawGizmos()
         {
-            if(_collector != null)
-                _collector.OnDrawGizmos();
-            if(_interacter != null)
-                _interacter.OnDrawGizmos();
+            foreach (var collect in collector)
+            {
+                collect.OnDrawGizmos();
+            }
         }
     }
 }

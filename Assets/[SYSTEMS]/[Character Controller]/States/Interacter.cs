@@ -5,54 +5,32 @@ using UnityEngine;
 
 namespace _SYSTEMS_._Character_Controller_.States
 {
-    public class Interacter
+    [CreateAssetMenu(menuName = "Character System/Scanner/Create Interacter", fileName = "Interacter", order = 0)]
+    public class Interacter : Scanner
     {
-        private readonly LayerMask _interactionLayerMask;
         private List<IUsable> _interactions = new List<IUsable>();
-        private float _radius = 2;
-        private Vector3 _offsetPoint;
-
-        private Transform transform;
-
-        public Interacter(Transform transform, float radius, LayerMask interactionLayerMask, Vector3 offsetPoint)
-        {
-            this._interactionLayerMask = interactionLayerMask;
-            this._radius = radius;
-            this._offsetPoint = offsetPoint;
-            this.transform = transform;
-        }
-        
-        public void SetRadius(float radius)
-        {
-            _radius = radius;
-        }
-        
-        public void SetOffsetPoint(Vector3 offsetPoint)
-        {
-            _offsetPoint = offsetPoint;
-        }
-        
         public List<IUsable> GetInteractions()
         {
             return _interactions;
         }
 
-        public bool CanInteract()
+        private bool CanInteract()
         {
-            var result = transform.GetInteractions<IUsable>(transform.position,
-                2, _interactionLayerMask);
+            var result = transform.GetInteractions<IUsable>(CenterPoint,
+                scannerData.radius, scannerData.layerMask);
 
             if (result.ContactCount == 0) return false;
 
-            _interactions = transform.GetInteractions<IUsable>(transform.position + _offsetPoint,
-                _radius, _interactionLayerMask).Interactions.ToList();
+            _interactions = transform.GetInteractions<IUsable>(CenterPoint,
+                scannerData.radius, scannerData.layerMask).Interactions.ToList();
             return true;
         }
 
-        public void OnTickInteraction()
+        public override void OnTick()
         {
-            if (!CanInteract()) return;
-
+            Debug.Log(_interactions.Count);
+            if (!(CanInteract())) return;
+            Debug.Log("Interact");
             foreach (var interaction in _interactions)
                 interaction.Use();
         }
@@ -60,15 +38,15 @@ namespace _SYSTEMS_._Character_Controller_.States
         public void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position + _offsetPoint, _radius);
+            Gizmos.DrawWireSphere(CenterPoint, scannerData.radius);
         }
 
-        public void OnDrawGizmos()
+        public override void OnDrawGizmos()
         {
 #if UNITY_EDITOR
 
-            ExtensionMethods.DrawDisc(transform.position + _offsetPoint,_radius,Color.green,3);
-            ExtensionMethods.DrawText(transform.position + _offsetPoint,"Interacter",Color.red);
+            ExtensionMethods.DrawDisc(CenterPoint, scannerData.radius, Color.green, 3);
+            ExtensionMethods.DrawText(CenterPoint, "Interacter", Color.red);
 #endif
         }
     }

@@ -12,7 +12,7 @@ namespace _SYSTEMS_._State_System_.Abstract
 
     public abstract class State : ScriptableObject, IReferenceContainer,IState
     {
-        private StateMachine _stateMachine;
+        protected StateMachine _stateMachine;
         protected Transform transform;
         
         public void SetStateMachine(StateMachine stateMachine)

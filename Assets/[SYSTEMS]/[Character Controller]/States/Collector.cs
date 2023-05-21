@@ -1,47 +1,42 @@
 using System;
 using _SYSTEMS_._InventorySystem_.Abstract;
 using _SYSTEMS_._InventorySystem_.Interface;
+using _SYSTEMS_._State_System_.Abstract;
 using UnityEngine;
 
 namespace _SYSTEMS_._Character_Controller_.States
 {
-    [Serializable]
-    public class Collector
+    [CreateAssetMenu(menuName = "Character System/Scanner/Create Collector", fileName = "Collector", order = 0)]
+    public class Collector : Scanner
     {
-        public LayerMask layerMask;
-        public float radius;
-        public Vector3 offsetPoint;
         public Bag bag;
         
-        public Collector(Bag bag, float radius, LayerMask layerMask,Vector3 offsetPoint)
+        public override void OnSetup(ref StateMachine stateMachine)
         {
-            this.layerMask = layerMask;
-            this.radius = radius;
-            this.offsetPoint = offsetPoint;
-            this.bag = bag;
+            base.OnSetup(ref stateMachine);
+            bag = GetReference<Bag>("Inventory");
         }
-        
-        public void OnTickCollector()
+
+        public override void OnTick()
         {
             var colliders = new Collider[1];
-            Physics.OverlapSphereNonAlloc(bag.transform.position + offsetPoint, radius, colliders, layerMask);
+            Physics.OverlapSphereNonAlloc(CenterPoint,
+                scannerData.radius, colliders, scannerData.layerMask);
 
             foreach (var collider1 in colliders)
             {
-                if(collider1 == null) continue;
+                if (collider1 == null) continue;
                 if (collider1.TryGetComponent(out ICollectable collectable))
                     collectable.Collect(bag.CurrentInventory);
             }
-
-            //OnDrawGizmos();
         }
-        
-        public void OnDrawGizmos()
+
+        public override void OnDrawGizmos()
         {
 #if UNITY_EDITOR
 
-            ExtensionMethods.DrawDisc(bag.transform.position + offsetPoint,radius,Color.blue,3);
-            ExtensionMethods.DrawText(bag.transform.position + Vector3.up,"Collector",Color.red);
+            ExtensionMethods.DrawDisc(CenterPoint, scannerData.radius, Color.blue, 3);
+            ExtensionMethods.DrawText(CenterPoint + Vector3.up, "Collector", Color.red);
 #endif
         }
     }

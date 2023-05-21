@@ -12,12 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13a347432c9bde84b96250ef9c82eaf3, type: 3}
   m_Name: Walk State
   m_EditorClassIdentifier: 
-  interactionLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
-  radius: 5
-  offsetPoint: {x: 0, y: 0, z: 0}
   collector:
-    layerMask:
-      serializedVersion: 2
-      m_Bits: 256
+  - {fileID: 11400000, guid: c98ea722d7c81394b8e611238bbd32b6, type: 2}
+  - {fileID: 11400000, guid: ed52538fe8f3b0542a9af5c610db4f19, type: 2}
